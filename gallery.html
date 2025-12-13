@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gallery — Katlehong Secondary School</title>
+  <link rel="stylesheet" href="sample.css" />
+  <style>
+    /* Gallery-specific styles */
+    .gallery-page-header {
+      padding: 60px 0 40px;
+      background: #fff;
+    }
+    .gallery-page-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    .gallery-page-title {
+      font-size: 36px;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 8px;
+      text-align: center;
+    }
+    .gallery-page-subtitle {
+      font-size: 16px;
+      color: #6b6b6b;
+      text-align: center;
+      margin-bottom: 0;
+    }
+
+    /* Gallery sections */
+    .gallery-section-wrapper {
+      padding: 60px 0;
+      background: #fff;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    .gallery-section-wrapper:last-child {
+      border-bottom: none;
+    }
+    .gallery-section-title {
+      font-size: 28px;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 12px;
+      text-align: center;
+      position: relative;
+      padding-bottom: 16px;
+    }
+    .gallery-section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: #E4002B;
+      border-radius: 2px;
+    }
+    .gallery-section-subtitle {
+      font-size: 14px;
+      color: #9CA3AF;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 24px;
+      text-align: center;
+    }
+
+    /* Image grid */
+    .gallery-grid-wrapper {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      margin-top: 40px;
+    }
+
+    /* Individual image item */
+    .gallery-image-card {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #f3f4f6;
+      box-shadow: 0 4px 12px rgba(2,6,23,0.08);
+      transition: transform 220ms cubic-bezier(0.18, 0.9, 0.32, 1),
+                  box-shadow 220ms cubic-bezier(0.18, 0.9, 0.32, 1);
+      cursor: pointer;
+    }
+    .gallery-image-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 28px rgba(2,6,23,0.12);
+    }
+
+    .gallery-image-placeholder {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      background: linear-gradient(135deg, #e5e7eb 0%, #d1d5db 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+      color: #9CA3AF;
+    }
+
+    .gallery-image-placeholder img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Back to main button */
+    .gallery-back-button {
+      display: inline-block;
+      background: #E4002B;
+      color: #fff;
+      padding: 12px 30px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 16px;
+      transition: background 220ms ease;
+      margin-bottom: 40px;
+    }
+    .gallery-back-button:hover {
+      background: #C4001B;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .gallery-page-title {
+        font-size: 28px;
+      }
+      .gallery-section-title {
+        font-size: 24px;
+      }
+      .gallery-grid-wrapper {
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        gap: 16px;
+      }
+      .gallery-section-wrapper {
+        padding: 40px 0;
+      }
+    }
+
+    /* Reveal animations (if JS is active) */
+    .gallery-image-card.reveal {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    .gallery-image-card.reveal-visible {
+      opacity: 1;
+      transform: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== HEADER START (same as main page) ===== -->
+  <header class="main-header">
+    <div class="header-container">
+      <!-- Logo + School Name -->
+      <div class="logo-box">
+        <img src="Screenshot%202025-11-21%20185054.png" alt="School Logo">
+        <div class="logo-text">
+          <h1>Katlehong Secondary</h1>
+          <span>Forward to Progress</span>
+        </div>
+      </div>
+
+      <!-- Navigation -->
+      <nav class="navbar">
+        <ul>
+          <li><a href="About.html#about">About</a></li>
+          <li><a href="About.html#academics">Academics</a></li>
+          <li><a href="About.html#our-school">Our School</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+        </ul>
+      </nav>
+
+      <!-- Mobile Menu Button -->
+      <div class="menu-btn" onclick="toggleMenu()">☰</div>
+    </div>
+  </header>
+
+  <style>
+    /* Header Styles (inline — same as main page) */
+    .main-header {
+      width: 100%;
+      background: white;
+      padding: 12px 0;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      font-family: Arial, sans-serif;
+    }
+    .header-container { max-width:1280px; margin:0 auto; padding:0 16px; display:flex; align-items:center; justify-content:space-between; }
+    .logo-box { display:flex; align-items:center; gap:12px; }
+    .logo-box img { width:48px; height:48px; object-fit:contain; }
+    .logo-text h1 { margin:0; font-size:20px; color:#111827; }
+    .logo-text span { font-size:12px; color:#E4002B; }
+    .navbar ul { list-style:none; display:flex; gap:24px; margin:0; padding:0; }
+    .navbar a { text-decoration:none; color:#374151; font-size:15px; transition:color 0.3s; }
+    .navbar a:hover { color:#E4002B; }
+    .menu-btn { display:none; font-size:28px; cursor:pointer; }
+    @media(max-width:768px){ .navbar{ position:absolute; top:70px; right:0; background:white; width:200px; padding:16px; box-shadow:0 4px 12px rgba(0,0,0,0.15); display:none; border-radius:8px; } .navbar ul{ flex-direction:column; gap:16px; } .menu-btn{ display:block; } .navbar.show{ display:block; } }
+  </style>
+
+  <script>
+    function toggleMenu(){ document.querySelector('.navbar').classList.toggle('show'); }
+  </script>
+
+  <!-- ===== HEADER END ===== -->
+
+  <!-- ===== GALLERY PAGE CONTENT START ===== -->
+
+  <!-- Page Header -->
+  <section class="gallery-page-header">
+    <div class="gallery-page-container">
+      <a href="About.html" class="gallery-back-button">← Back to Main</a>
+      <h1 class="gallery-page-title">School Gallery</h1>
+      <p class="gallery-page-subtitle">Explore the moments and highlights from Katlehong Secondary School</p>
+    </div>
+  </section>
+
+  <!-- ===== SRC SECTION ===== -->
+  <section class="gallery-section-wrapper">
+    <div class="gallery-page-container">
+      <div class="gallery-section-subtitle">Gallery</div>
+      <h2 class="gallery-section-title">SRC</h2>
+      <p style="text-align: center; color: #6b6b6b; max-width: 600px; margin: 0 auto 20px;">
+        Student Representative Council — leadership, events, and student government moments.
+      </p>
+      
+      <div class="gallery-grid-wrapper">
+        <!-- Image 1: Replace the src with your image path -->
+        <div class="gallery-image-card reveal">
+          <div class="gallery-image-placeholder">
+            <img src="https://via.placeholder.com/400x400?text=SRC+Image+1" alt="SRC event or meeting" />
+          </div>
+        </div>
+        
+        <!-- Image 2 -->
+        <div class="gallery-image-card reveal">
+          <div class="gallery-image-placeholder">
+            <img src="https://via.placeholder.com/400x400?text=SRC+Image+2" alt="SRC activity" />
+          </div>
+        </div>
+        
+        <!-- Image 3 -->
+        <div class="gallery-image-card reveal">
+          <div class="gallery-image-placeholder">
+            <img src="https://via.placeholder.com/400x400?text=SRC+Image+3" alt="SRC group photo" />
+          </div>
+        </div>
+        
+        <!-- Image 4 -->
+        <div class="gallery-image-card reveal">
+          <div class="gallery-image-placeholder">
+            <img src="https://via.placeholder.com/400x400?text=SRC+Image+4" alt="SRC meeting or event" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== EVENTS SECTION ===== -->
+  <section class="gallery-section-wrapper">
+    <div class="gallery-page-container">
+      <div class="gallery-section-subtitle">Gallery</div>
+      <h2 class="gallery-section-title">Events</h2>
+      <p style="text-align: center; color: #6b6b6b; max-width: 600px; margin: 0 auto 20px;">
+        School events, celebrations, sports days, and community activities throughout the year.
+      </p>
+      
+      <div class="gallery-grid-wrapper">
+        <!-- Event Image 1 -->
+        <div class="gallery-image-card reveal reveal-delay-1">
+          <div class="gallery-image-placeholder">
+            <img src="https://via.placeholder.com/400x400?text=Event+Image+1" alt="School event" />
+          </div>
+        </div>
+        
+        <!-- Event Image 2 -->
+        <div class="gallery-image-card reveal reveal-delay-2">
+          <div class="gallery-image-placeholder">
+            <img src="https://via.placeholder.com/400x400?text=Event+Image+2" alt="School celebration" />
+          </div>
+        </div>
+        
+        <!-- Event Image 3 -->
+        <div class="gallery-image-card reveal reveal-delay-3">
+          <div class="gallery-image-placeholder">
+            <img src="https://via.placeholder.com/400x400?text=Event+Image+3" alt="Sports event" />
+          </div>
+        </div>
+        
+        <!-- Event Image 4 -->
+        <div class="gallery-image-card reveal">
+          <div class="gallery-image-placeholder">
+            <img src="https://via.placeholder.com/400x400?text=Event+Image+4" alt="School activity" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== STAFF SECTION ===== -->
+  <section class="gallery-section-wrapper">
+    <div class="gallery-page-container">
+      <div class="gallery-section-subtitle">Gallery</div>
+      <h2 class="gallery-section-title">Staff</h2>
+      <p style="text-align: center; color: #6b6b6b; max-width: 600px; margin: 0 auto 20px;">
+        Photos of our dedicated teaching and administrative staff members.
+      </p>
+      
+      <div class="gallery-grid-wrapper">
+        <!-- Staff Photo 1 -->
+        <div class="gallery-image-card reveal">
+          <div class="gallery-image-placeholder">
+            <img src="https://via.placeholder.com/400x400?text=Staff+Photo+1" alt="Staff member" />
+          </div>
+        </div>
+        
+        <!-- Staff Photo 2 -->
+        <div class="gallery-image-card reveal reveal-delay-1">
+          <div class="gallery-image-placeholder">
+            <img src="https://via.placeholder.com/400x400?text=Staff+Photo+2" alt="Staff member" />
+          </div>
+        </div>
+        
+        <!-- Staff Photo 3 -->
+        <div class="gallery-image-card reveal reveal-delay-2">
+          <div class="gallery-image-placeholder">
+            <img src="https://via.placeholder.com/400x400?text=Staff+Photo+3" alt="Staff member" />
+          </div>
+        </div>
+        
+        <!-- Staff Photo 4 -->
+        <div class="gallery-image-card reveal reveal-delay-3">
+          <div class="gallery-image-placeholder">
+            <img src="https://via.placeholder.com/400x400?text=Staff+Photo+4" alt="Staff member" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== MATRIC SECTION ===== -->
+  <section class="gallery-section-wrapper">
+    <div class="gallery-page-container">
+      <div class="gallery-section-subtitle">Gallery</div>
+      <h2 class="gallery-section-title">Matric</h2>
+      <p style="text-align: center; color: #6b6b6b; max-width: 600px; margin: 0 auto 20px;">
+        Matric class photos, graduation celebrations, and memorable moments from our Grade 12 learners.
+      </p>
+      
+      <div class="gallery-grid-wrapper">
+        <!-- Matric Photo 1 -->
+        <div class="gallery-image-card reveal">
+          <div class="gallery-image-placeholder">
+            <img src="https://via.placeholder.com/400x400?text=Matric+Photo+1" alt="Matric class photo" />
+          </div>
+        </div>
+        
+        <!-- Matric Photo 2 -->
+        <div class="gallery-image-card reveal reveal-delay-1">
+          <div class="gallery-image-placeholder">
+            <img src="https://via.placeholder.com/400x400?text=Matric+Photo+2" alt="Matric celebration" />
+          </div>
+        </div>
+        
+        <!-- Matric Photo 3 -->
+        <div class="gallery-image-card reveal reveal-delay-2">
+          <div class="gallery-image-placeholder">
+            <img src="https://via.placeholder.com/400x400?text=Matric+Photo+3" alt="Graduation moment" />
+          </div>
+        </div>
+        
+        <!-- Matric Photo 4 -->
+        <div class="gallery-image-card reveal reveal-delay-3">
+          <div class="gallery-image-placeholder">
+            <img src="https://via.placeholder.com/400x400?text=Matric+Photo+4" alt="Matric group photo" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER (same as main page) ===== -->
+  <footer style="background:#111827; color:white; padding-top:64px; padding-bottom:32px; font-family:Arial, sans-serif;">
+    <div style="max-width:1280px; margin:0 auto; padding:0 16px;">
+      
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:32px; margin-bottom:48px;">
+
+        <!-- School Info -->
+        <div>
+          <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
+            <div style="width:48px; height:48px; border-radius:8px; overflow:hidden;">
+              <img src="Screenshot%202025-11-21%20185054.png" alt="KSS Logo" style="width:100%; height:100%; object-fit:contain;">
+            </div>
+            <div>
+              <div style="color:white; font-size:16px;">Katlehong Secondary</div>
+              <div style="color:#E4002B; font-size:12px;">Forward to Progress</div>
+            </div>
+          </div>
+
+          <p style="color:#9CA3AF; margin-bottom:16px;">
+            Empowering the youth of Katlehong through quality education since 1985.
+          </p>
+
+          <div style="display:flex; gap:12px;">
+            <a href="#" style="width:40px; height:40px; background:#1F2937; border-radius:8px; display:flex; justify-content:center; align-items:center;">FB</a>
+            <a href="#" style="width:40px; height:40px; background:#1F2937; border-radius:8px; display:flex; justify-content:center; align-items:center;">TW</a>
+            <a href="#" style="width:40px; height:40px; background:#1F2937; border-radius:8px; display:flex; justify-content:center; align-items:center;">IG</a>
+            <a href="#" style="width:40px; height:40px; background:#1F2937; border-radius:8px; display:flex; justify-content:center; align-items:center;">IN</a>
+          </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div>
+          <h4 style="margin-bottom:16px; color:white;">Quick Links</h4>
+          <ul style="list-style:none; padding:0; margin:0;">
+            <li><a href="About.html#about" style="color:#9CA3AF; text-decoration:none;">About Us</a></li>
+            <li><a href="About.html#academics" style="color:#9CA3AF; text-decoration:none;">Academics</a></li>
+            <li><a href="gallery.html" style="color:#9CA3AF; text-decoration:none;">Gallery</a></li>
+          </ul>
+        </div>
+
+        <!-- Resources -->
+        <div>
+          <h4 style="margin-bottom:16px; color:white;">Resources</h4>
+          <ul style="list-style:none; padding:0; margin:0;">
+            <li><a href="#" style="color:#9CA3AF; text-decoration:none;">School Calendar</a></li>
+            <li><a href="#" style="color:#9CA3AF; text-decoration:none;">Exam Timetables</a></li>
+            <li><a href="#" style="color:#9CA3AF; text-decoration:none;">School Policies</a></li>
+            <li><a href="#" style="color:#9CA3AF; text-decoration:none;">Parent Portal</a></li>
+            <li><a href="#" style="color:#9CA3AF; text-decoration:none;">Contact Us</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact Info -->
+        <div>
+          <h4 style="margin-bottom:16px; color:white;">Contact Us</h4>
+          <ul style="list-style:none; padding:0; margin:0;">
+            <li style="display:flex; gap:12px; margin-bottom:12px;">
+              <span style="color:#E4002B;">📍</span>
+              <span style="color:#9CA3AF;">
+                123 School Street<br>
+                Katlehong, Ekurhuleni<br>
+                Gauteng, 1431
+              </span>
+            </li>
+            <li style="display:flex; gap:12px; margin-bottom:12px;">
+              <span style="color:#E4002B;">📞</span>
+              <span style="color:#9CA3AF;">+27 11 123 4567</span>
+            </li>
+            <li style="display:flex; gap:12px;">
+              <span style="color:#E4002B;">✉️</span>
+              <span style="color:#9CA3AF;">info@katlehongsecondary.co.za</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Bottom Bar -->
+      <div style="border-top:1px solid #1F2937; padding-top:32px;">
+        <div style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center;">
+          <p style="color:#9CA3AF; margin-bottom:12px;">
+            © 2025 Katlehong Secondary School. All rights reserved.
+          </p>
+
+          <div style="display:flex; gap:24px;">
+            <a href="#" style="color:#9CA3AF; text-decoration:none;">Privacy Policy</a>
+            <a href="#" style="color:#9CA3AF; text-decoration:none;">Terms of Use</a>
+            <a href="#" style="color:#9CA3AF; text-decoration:none;">POPIA Compliance</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- Scroll-reveal script (same as main page) -->
+  <script>
+    (function() {
+      if (typeof window === 'undefined') return;
+      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+      document.addEventListener('DOMContentLoaded', function() {
+        const selectors = [
+          'section',
+          '.gallery-image-card',
+          '.gallery-section-title'
+        ];
+
+        const elements = [];
+        selectors.forEach(sel => {
+          document.querySelectorAll(sel).forEach(el => {
+            if (el.closest('.main-header')) return;
+            elements.push(el);
+          });
+        });
+
+        elements.forEach((el, idx) => {
+          if (!el.classList.contains('reveal')) el.classList.add('reveal');
+          const delay = Math.min(6, Math.floor(idx / 6));
+          if (!el.style.transitionDelay) el.style.transitionDelay = (delay * 80) + 'ms';
+        });
+
+        const io = new IntersectionObserver((entries, obs) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('reveal-visible');
+              obs.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.12 });
+
+        elements.forEach(el => io.observe(el));
+      });
+    })();
+  </script>
+
+</body>
+</html>
